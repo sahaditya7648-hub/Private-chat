@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Private Chat</title>
+</head>
+<body>
+
+<h2>Login</h2>
+
+<input type="password" id="password" placeholder="Password">
+<button onclick="login()">Login</button>
+
+<div id="chat" style="display:none;">
+<h2>Welcome ❤️</h2>
+<p>Login Successful</p>
+</div>
+
+<script>
+function login() {
+  var pass = document.getElementById("password").value;
+
+  if(pass === "bandariya") {
+    document.getElementById("chat").style.display = "block";
+  } else {
+    alert("Wrong Password");
+  }
+}
+</script>
+
+</body>
+</html>
