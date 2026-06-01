@@ -2,30 +2,57 @@
 <html>
 <head>
 <title>Private Chat</title>
+<style>
+body{font-family:Arial;max-width:500px;margin:50px auto;padding:20px}
+#chat{display:none}
+input,button{width:100%;padding:10px;margin:5px 0}
+.message{background:#f0f0f0;padding:8px;margin:5px 0;border-radius:5px}
+</style>
 </head>
 <body>
 
+<div id="login">
 <h2>Login</h2>
-
-<input type="password" id="password" placeholder="Password">
+<input type="password" id="pass" placeholder="Password">
 <button onclick="login()">Login</button>
+</div>
 
-<div id="chat" style="display:none;">
-<h2>Welcome ❤️</h2>
-<p>Login Successful</p>
+<div id="chat">
+<h2>Private Chat 💕</h2>
+<div id="msgs"></div>
+<input type="text" id="msg" placeholder="Type message...">
+<button onclick="send()">Send</button>
 </div>
 
 <script>
-function login() {
-  var pass = document.getElementById("password").value;
+function login(){
+    if(pass.value=="12345"){
+        login.style.display="none";
+        chat.style.display="block";
+        load();
+    }else alert("Wrong password");
+}
 
-  if(pass === "bandariya") {
-    document.getElementById("chat").style.display = "block";
-  } else {
-    alert("Wrong Password");
-  }
+function send(){
+    let m=msg.value;
+    if(m=="")return;
+    let all=JSON.parse(localStorage.getItem("chat")||"[]");
+    all.push({text:m,time:new Date().toLocaleTimeString()});
+    localStorage.setItem("chat",JSON.stringify(all));
+    msg.value="";
+    load();
+}
+
+function load(){
+    let all=JSON.parse(localStorage.getItem("chat")||"[]");
+    msgs.innerHTML="";
+    all.forEach(x=>{
+        let d=document.createElement("div");
+        d.className="message";
+        d.innerHTML=`<b>${x.time}</b> ${x.text}`;
+        msgs.appendChild(d);
+    });
 }
 </script>
-
 </body>
 </html>
